@@ -37,7 +37,8 @@ namespace API {
             // });
 
 
-            var serverVersion = new MariaDbServerVersion(new Version(10, 5, 0));
+            // var serverVersion = new MariaDbServerVersion(new Version(10, 5, 0));
+            var serverVersion = new MariaDbServerVersion(new Version(10, 3, 0)); // Azure doesn't support higher versions currently
 
             // Replace 'YourDbContext' with the name of your own DbContext derived class.
             services.AddDbContext<DataContext>(
@@ -75,7 +76,8 @@ namespace API {
 
             app.UseRouting();
 
-            app.UseCors(policy => policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader());
+            // app.UseCors(policy => policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader()); // TODO: Put value in appsettings
+            app.UseCors(policy => policy.WithOrigins(Environment.GetEnvironmentVariable("FRONTEND_ENDPOINT")).AllowAnyMethod().AllowAnyHeader()); 
 
             app.UseAuthorization();
 

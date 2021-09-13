@@ -1,0 +1,35 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+variables:
+- name: projectName
+  value: 'WonByCheckmate'
+
+pool:
+  vmImage: ubuntu-20.04
+
+steps:
+# Publish dotnet application
+# Default settings for publishWebProjects and zipAfterPublish is true
+# We set zipAfterPublish to true since we are publishing to Azure App Service since it takes a .zip file
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet publish'
+  inputs:
+    command: publish
+    publishWebProjects: false
+    projects: API.csproj
+    arguments: '--output $(Build.ArtifactStagingDirectory)/$(projectName)'
+    zipAfterPublish: true
+    modifyOutputPath: false
+
+- task: PublishPipelineArtifact@1
+  displayName: publish artifacts
+  inputs:
+    targetPath: '$(Build.ArtifactStagingDirectory)/$(projectName)'
+    artifactName: 'drop'
+    artifactType: 'pipeline'
