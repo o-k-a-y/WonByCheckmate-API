@@ -37,7 +37,8 @@ namespace API {
             // });
 
 
-            var serverVersion = new MariaDbServerVersion(new Version(10, 5, 0));
+            // var serverVersion = new MariaDbServerVersion(new Version(10, 5, 0));
+            var serverVersion = new MariaDbServerVersion(new Version(10, 3, 0)); // Azure doesn't support higher versions currently
 
             // Replace 'YourDbContext' with the name of your own DbContext derived class.
             services.AddDbContext<DataContext>(

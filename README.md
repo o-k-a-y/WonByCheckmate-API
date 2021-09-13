@@ -1,6 +1,14 @@
 # WonByCheckmate
 Chess.com API for statistical information on players.
 
+# Deploying
+## Azure DevOps
+### Build
+Infrastructure as code for the build defined inside azure-pipelines.yml.
+
+### Release
+For deploying to Linux App Services, this startup command will be required: `dotnet /home/site/wwwroot/API.dll` where API is the name of the application.
+
 # CORS issues
 - For some reason running Angular on localhost resulted in seemingly unavoidable CORS issues when calling the chess API causing requests to fail
 - This could have been due to forgetting some request header or using the wrong request object
@@ -21,5 +29,10 @@ Mariadb
 
 https://stackoverflow.com/questions/39189451/mariadb-install-in-ubuntu-16-04
 
+## Entity Framework
+Azure only supports up to version 10.3 for MariaDB and that's the lowest version EF supports using Pomelo library
+- https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql
+
+### Making a migration and updating
 - dotnet ef migrations add InitialCreate -o Data/Migrations
 - dotnet ef database update
