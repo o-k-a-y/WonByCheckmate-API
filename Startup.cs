@@ -76,7 +76,8 @@ namespace API {
 
             app.UseRouting();
 
-            app.UseCors(policy => policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader());
+            // app.UseCors(policy => policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader()); // TODO: Put value in appsettings
+            app.UseCors(policy => policy.WithOrigins(Environment.GetEnvironmentVariable("FRONTEND_ENDPOINT")).AllowAnyMethod().AllowAnyHeader()); 
 
             app.UseAuthorization();
 
