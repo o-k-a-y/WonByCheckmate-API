@@ -43,7 +43,8 @@ namespace API {
             // Replace 'YourDbContext' with the name of your own DbContext derived class.
             services.AddDbContext<DataContext>(
                 dbContextOptions => dbContextOptions
-                    .UseMySql(Environment.GetEnvironmentVariable("CHESS_DB"), serverVersion)
+                    // .UseMySql(Environment.GetEnvironmentVariable("CHESS_DB"), serverVersion)
+                    .UseMySql(Environment.GetEnvironmentVariable("CHESS_DB"), ServerVersion.AutoDetect(Environment.GetEnvironmentVariable("CHESS_DB")))
                     // .UseMySql(Environment.GetEnvironmentVariable(_config.GetConnectionString("MariaDB")), serverVersion)
                     .EnableSensitiveDataLogging() // <-- These two calls are optional but help
                     .EnableDetailedErrors()       // <-- with debugging (remove for production).
