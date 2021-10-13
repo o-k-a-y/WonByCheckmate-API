@@ -10,13 +10,17 @@ Chess.com API for statistical information on players.
   - The outbound ip addresses of app services can be found under `Networking`
 ## DNS and TLS
 - Buy a domain name
-- Create a CNAME and TXT record for binding existing azurewebsites.net domain to domain name
-  - https://docs.microsoft.com/en-us/azure/app-service/app-service-web-tutorial-custom-domain
-  - Custom Domain Verification ID can be found in the `Custom domains` blade under the frontend app service
-  - The asuid.appname.com TXT record is used for security in verifying DNS entries for app services
-    - https://docs.microsoft.com/en-us/azure/security/fundamentals/subdomain-takeover
-  - Creating a CNAME www.customdomain.com -> appservicename.azurewebsites.net and then adding another custom domain under `Custom domains` is how you can add subdomains, in this case www.
-    - Another certificate would be required to add TLS per subdomain unless using wildcards
+- `CNAME record` mapping:
+  - Create a CNAME and TXT record for binding existing azurewebsites.net domain to domain name
+    - https://docs.microsoft.com/en-us/azure/app-service/app-service-web-tutorial-custom-domain
+    - Custom Domain Verification ID can be found in the `Custom domains` blade under the frontend app service
+    - The asuid.appname.com TXT record is used for security in verifying DNS entries for app services
+      - https://docs.microsoft.com/en-us/azure/security/fundamentals/subdomain-takeover
+    - Creating a CNAME www.customdomain.com -> appservicename.azurewebsites.net and then adding another custom domain under `Custom domains` is how you can add subdomains, in this case www.
+      - Another certificate would be required to add TLS per subdomain unless using wildcards
+- `A record` mapping:
+  - Similar to above, we can create a TXT record with the asuid of the app service, then an A record with the inbound app service IP for each subdomain
+    - With no subdomain we can access appname.com
 - Under `Custom domains`, add a custom domain and add the domain name you bought
 - Under `TLS/SSL settings`, create a free `Create App Service Managed Certificate` under `Private Key Certificates (.pfx)` and select the domain name.
 - Go back to `Custom domains` add SNI SSL binding and chose the certifcate you just created
