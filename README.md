@@ -21,6 +21,7 @@ Chess.com API for statistical information on players.
 - `A record` mapping:
   - Similar to above, we can create a TXT record with the asuid of the app service, then an A record with the inbound app service IP for each subdomain
     - With no subdomain we can access appname.com
+  - There may be a small bug where you first need to create the `Private Key Certificates` under CNAME records, then delete the CNAME records, then make the A records to get HTTPS to work
 - Under `Custom domains`, add a custom domain and add the domain name you bought
 - Under `TLS/SSL settings`, create a free `Create App Service Managed Certificate` under `Private Key Certificates (.pfx)` and select the domain name.
 - Go back to `Custom domains` add SNI SSL binding and chose the certifcate you just created
