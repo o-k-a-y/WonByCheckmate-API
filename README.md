@@ -1,6 +1,28 @@
 # WonByCheckmate
 Chess.com API for statistical information on players.
 
+# Azure Cloud setup
+## App Services
+- Create app service for API and for frontend
+## Database
+- Create Azure Database for MariaDB
+- Allow connection from your PC (for local debugging) and connections from one of the outbound ip addresses of the API app service under `Connection security`
+  - The outbound ip addresses of app services can be found under `Networking`
+## DNS and TLS
+- Buy a domain name
+- Create a CNAME and TXT record for binding existing azurewebsites.net domain to domain name
+  - https://docs.microsoft.com/en-us/azure/app-service/app-service-web-tutorial-custom-domain
+  - Custom Domain Verification ID can be found in the `Custom domains` blade under the frontend app service
+- Under `Custom domains`, add a custom domain and add the domain name you bought
+- Under `TLS/SSL settings`, create a free `Create App Service Managed Certificate` under `Private Key Certificates (.pfx)` and select the domain name.
+- Go back to `Custom domains` add SNI SSL binding and chose the certifcate you just created
+## Environment variables
+- Create these in the `Configuration` blade of the API app service
+- Create environment variables:
+  - CHESS_DB - Connection string of the database
+  - FRONTEND_ENDPOINT - URL of the frontend
+  - APPINSIGHTS_INSTRUMENTATIONKEY - Application insights key
+
 # Deploying
 ## Azure DevOps
 ### Build
